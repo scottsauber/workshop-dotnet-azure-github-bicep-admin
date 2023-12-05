@@ -1,23 +1,40 @@
 name: Add new app registration, OIDC Connection, and Resource Group
 
 on:
-  push:
-    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      github-username:
+        type: string
+        required: true
+        description: GH Username of person in the workshop
+      github-repo:
+        type: string
+        required: true
+        description: Repo name of person in the workshop
+      email:
+        type: string
+        required: true
+        description: Email of person in the workshop, to be used to invite to Azure
 
 permissions:
   id-token: write # This is required for requesting the JWT
-  contents: read # This is required for actions/checkout
+  contents: read  # This is required for actions/checkout
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - name: "Checkout GitHub Action"
+      - name: 'Checkout GitHub Action'
         uses: actions/checkout@v3
 
-      - name: "Login via Azure CLI"
+      - name: 'Login via Azure CLI'
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: 'Run app'
+        run: |
+          cd src/AzureAdmin
+          dotnet run -- ${{ secrets.AZURE_SUBSCRIPTION_ID }} ${{ github.event.inputs.github-username }} ${{ github.event.inputs.github-repo }} ${{ github.event.inputs.email }}
