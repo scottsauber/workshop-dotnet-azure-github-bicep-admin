@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureAdmin", "src\AzureAdmin\AzureAdmin.csproj", "{40949A7B-4DB5-442E-B70A-C6DD73F9960F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzurePinger", "AzurePinger\AzurePinger.csproj", "{6FCDF625-4831-4648-8B06-FF45E9EDFAED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{40949A7B-4DB5-442E-B70A-C6DD73F9960F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40949A7B-4DB5-442E-B70A-C6DD73F9960F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40949A7B-4DB5-442E-B70A-C6DD73F9960F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FCDF625-4831-4648-8B06-FF45E9EDFAED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FCDF625-4831-4648-8B06-FF45E9EDFAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FCDF625-4831-4648-8B06-FF45E9EDFAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FCDF625-4831-4648-8B06-FF45E9EDFAED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

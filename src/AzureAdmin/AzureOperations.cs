@@ -42,7 +42,6 @@ public static class AzureOperations
             InvitedUserEmailAddress = email,
             InviteRedirectUrl = "https://github.com/scottsauber/workshop-dotnet-azure-github-bicep",
             SendInvitationMessage = true,
-            
         };
         var graphClient = new GraphServiceClient(new AzureCliCredential());
         
@@ -64,16 +63,21 @@ public static class AzureOperations
         RunCommandLine($"az role assignment create --role reader --subscription {subscriptionId} --assignee-object-id {userObjectId} --assignee-principal-type User --scope /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}");
     }
 
-    public static void AddFederatedCredential(string appId, string gitHubUsername, string gitHubRepo, string environment)
+    public static void AddFederatedCredential(string appId, string gitHubUsername, string gitHubRepo, string environment, bool isPrVerify)
     {
         Console.WriteLine("Adding Federated Credential");
         
         var federatedCredentialName = $"fc-workshop-dnazghbicep-{gitHubUsername}-{environment}";
+        if (isPrVerify)
+            federatedCredentialName += "-pr";
+        
         var federatedCredentialParameters = new
         {
             name = federatedCredentialName,
             issuer = "https://token.actions.githubusercontent.com/",
-            subject = $"repo:{gitHubUsername}/{gitHubRepo}:ref:refs/heads/main",
+            subject = isPrVerify 
+                ? $"repo:{gitHubUsername}/{gitHubRepo}:pull_request" 
+                : $"repo:{gitHubUsername}/{gitHubRepo}:ref:refs/heads/main",
             description = $"Repo for authing to {gitHubUsername}/{gitHubRepo}",
             audiences = new[]{  "api://AzureADTokenExchange" }
         };
